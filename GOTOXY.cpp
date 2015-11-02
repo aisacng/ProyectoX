@@ -59,7 +59,7 @@ using namespace std;
 
  }  
  //parte inicial
- #include <iostream>
+#include <iostream>
 #include <windows.h>
 using namespace std;
 struct cuenta{
@@ -83,6 +83,8 @@ cuenta usu[100];
 void ingreso(cuenta []);
 void crear(cuenta []);
 int menuprinc();
+int menuusu();
+void mainusuario();
 int main(){
 	int o,v=1;
 	while(v==1){
@@ -107,6 +109,7 @@ int menuprinc(){
 }
 void ingreso(cuenta usu[]){
 	string u,p,n;
+	char resp;
 	int i,t=0;
 	cout<<"INGRESE USUARIO Y CLAVE:"<<endl;
 	cout<<"Usuario:";
@@ -117,29 +120,59 @@ void ingreso(cuenta usu[]){
 	cin>>n;
 	for(i=0;i<100;i++){
 		if(u==usu[i].usua && p==usu[i].contra && n==usu[i].pin){
-			cout<<"valido!";
+			cout<<"Bienvenido, "<<u<<endl;
 			t=1;
+			mainusuario();
 		}
 	}
+	system("cls");
 	while(t==0){
-	cout<<"usuario erroneo/no existe!"<<endl;
-	cout<<"ingrese sus datos nuevo!"<<endl;
-	cout<<"Usuario:";
-	cin>>u;
-	cout<<"Password:";
-	cin>>p;
-	cout<<"Pin:";
-	cin>>n;
-	for(i=0;i<100;i++){
-		if(u==usu[i].usua && p==usu[i].contra && n==usu[i].pin){
-			cout<<"valido!";
-			t=1;
+	cout<<"Usuario erroneo/no existe!"<<endl;
+	cout<<"(a) Desea volver a intentar?"<<endl;
+	cout<<"(b) Volver al menu principal"<<endl;
+	cin>>resp;
+		if(resp=='a'){
+			cout<<"Ingrese sus datos nuevo!"<<endl;
+		cout<<"Usuario:";
+		cin>>u;
+		cout<<"Password:";
+		cin>>p;
+		cout<<"Pin:";
+		cin>>n;
+			for(i=0;i<100;i++){
+				if(u==usu[i].usua && p==usu[i].contra && n==usu[i].pin){
+					cout<<"valido!";
+					t=1;
+				}
+			}
 		}
-	}
+		else{
+			main();
+		}
 }
 	system("cls");
-	//mainusuario();
 }
+void mainusuario(){
+	int o,v=1;
+	while(v==1){
+	o=menuusu();
+	switch(o){
+		case 1: //apps(usu); break;
+		case 2: //tienda(usu); break;
+		case 3: v=0; break;		
+	}
+	}
+	main();
+}
+int menuusu(){
+	int a;
+	cout<<"-.-.-.-.-.-.BIENVENIDO-.-.-.-.-.-"<<endl;
+	cout<<"(1) Mis apps"<<endl;
+	cout<<"(2) Tienda"<<endl;
+	cout<<"(3) Cerrar sesion"<<endl;
+	cin>>a;
+	system("cls");
+	return a;}
 void crear(cuenta usu[]){
 	cin.ignore(256,'\n');
 	static int k=0;
@@ -161,4 +194,5 @@ void crear(cuenta usu[]){
 	cout<<"correo:";
 	getline(cin,usu[k].correo);
 	cout<<"cuenta creada exitosamente!"<<endl;
+	system("cls");
 }
